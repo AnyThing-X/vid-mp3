@@ -9,10 +9,6 @@ from moviepy.editor import *
 from telethon import TelegramClient, events, errors
 from telethon.tl.types import DocumentAttributeVideo
 logging.basicConfig(level=logging.WARNING)
-api_id = 17349
-api_hash = "344583e45741c457fe1862106095a5eb"
-client = TelegramClient("video2mp3", api_id, api_hash)
-client.start(bot_token='925523949:AAHv7u7vYkqlq7TACCM25S8VNUlJjobkSDQ')
 api_id = environ["api_id"]
 api_hash = environ["api_hash"]
 client = TelegramClient("video2mp3", api_id, api_hash)
