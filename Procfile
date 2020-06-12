@@ -1,1 +1,1 @@
-worker: python video2mp3.py
+worker: python3 video2mp3.py
