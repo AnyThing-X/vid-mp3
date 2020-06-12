@@ -38,14 +38,13 @@ async def tint_it(event):
     with tempfile.TemporaryDirectory() as temp_directory:
         async with client.conversation(event.chat_id, timeout=None, total_timeout=None) as conv:
             try:
-                message = await conv.send_message("Downloading... ⏳")
+                message = await conv.send_message("📥 Downloading ... ⏳")
                 last = Timer(time())
                 media = await client.download_media(event.media, progress_callback=progress, file=temp_directory)
                 audio = AudioFileClip(media)
-                await message.edit("✅ Converting to Mp3file 🎙")
+                await message.edit("⏳ 🔄 Converting to Mp3file 🎙")
                 subprocess.run(f'ffmpeg -i {media} -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 "{temp_directory}/file.mp3"', shell=True)
-                await message.edit("Uploaded... ⏳")
-                last.set_action("Downloading... ⏳")
+                await message.edit("📤 Uploading ... ⏳")
                 await client.send_file(event.chat_id, f"{temp_directory}/file.mp3", supports_streaming=True,
                                        progress_callback=progress)
                 await message.delete()
