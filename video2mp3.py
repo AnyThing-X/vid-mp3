@@ -31,7 +31,7 @@ async def tint_it(event):
             f'ffmpeg -i {media} -vn -ac 2 -ar 44100 -ab 200k -f mp3 {rand}.mp3', shell=True)
         await message.edit("🔄 Processing : 📤 Uploading ... ⏳")
         await client.send_file(event.chat_id, f"{rand}.mp3", supports_streaming=True, reply_to=event.message.id)
-        await message.edit("✅ Done")
+        await message.delete()
         os.remove(media)
         os.remove(f"{rand}.mp3")
     except:
