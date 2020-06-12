@@ -27,7 +27,7 @@ class Timer():
 async def start_it(event):
     await event.reply("✋ Welcome I Can Convert 📽 Video To ⏯ Mp3 File")
     
-@client.on(events.NewMessage(func=lambda e: e.is_private and e.media and e.mime_type='video/mp4'))
+@client.on(events.NewMessage(func=lambda e: e.is_private and e.media and e.is_video))
 async def tint_it(event):
     
 
