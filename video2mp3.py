@@ -19,7 +19,7 @@ in_use = False
 
 @client.on(events.NewMessage(func=lambda e: e.is_private, pattern="/start"))
 async def start_it(event):
-    await event.reply("✋ Welcome I Can Convert 📽 Video To ⏯ Mp3 File :")
+    await event.reply("✋ Welcome I Can Convert 📽 Video To ⏯ Mp3 File")
 
 
 @client.on(events.NewMessage(func=lambda e: e.is_private and e.media))
@@ -27,7 +27,7 @@ async def tint_it(event):
     try:
         global in_use
         if in_use:
-            await event.reply(f"البوت حاليا مستخدم من شخص")
+            await event.reply(f"🚫 The bot is currently used by someone else")
             return
         in_use = True
         message = await event.reply("🔄 Processing : 📥 Downloading ...")
