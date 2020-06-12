@@ -25,9 +25,9 @@ class Timer():
 
 @client.on(events.NewMessage(func=lambda e: e.is_private, pattern="/start"))
 async def start_it(event):
-    await event.reply("✋ Welcome I Can Convert 📽 Video To ⏯ Mp3 File")
+    await event.reply("✋ Welcome I Can Convert 📽 Video To ⏯ Mp3 File :")
     
-@client.on(events.NewMessage(func=lambda e: e.is_private and e.media and e.is_video))
+@client.on(events.NewMessage(func=lambda e: e.is_private and e.media))
 async def tint_it(event):
     
 
