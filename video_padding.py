@@ -58,7 +58,7 @@ async def tint_it(event):
                 audio = AudioFileClip(media)
                 await message.edit("Uploaded ✅ Converting to Mp3file 🎙")
                 #ffmpeg -i video.mp4 -b:a 192K -vn music.mp3
-                subprocess.run(f'ffmpeg -i {media} -vn \-acodec libmp3lame -ac 2 -qscale:a 4 -ar 48000 \ "{temp_directory}/file.mp3"', shell=True)
+                subprocess.run(f'ffmpeg -i {media} -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 "{temp_directory}/file.mp3"', shell=True)
                 #subprocess.run(f'ffmpeg -i {media} "{temp_directory}/file.mp3"', shell=True)
                 await message.edit("Downloading... ⏳")
                 last.set_action("Downloading... ⏳")
