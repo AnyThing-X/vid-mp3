@@ -47,7 +47,7 @@ async def tint_it(event):
                 await message.edit("Downloading... ⏳")
                 last.set_action("Downloading... ⏳")
                 await client.send_file(event.chat_id, f"{temp_directory}/file.mp3", supports_streaming=True,
-                                       progress_callback=progress,reply_to(event.message.id))
+                                       progress_callback=progress)
                 await message.delete()
                 audio.close()
             except:
