@@ -46,7 +46,7 @@ async def tint_it(event):
                 subprocess.run(f'ffmpeg -i {media} -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 "{temp_directory}/file.mp3"', shell=True)
                 await message.edit("📤 Uploading ... ⏳")
                 await client.send_file(event.chat_id, f"{temp_directory}/file.mp3", supports_streaming=True,
-                                       progress_callback=progress)
+                                       progress_callback=progress,reply_to=event.message.reply_to_msg_id)
                 await message.delete()
                 audio.close()
             except:
