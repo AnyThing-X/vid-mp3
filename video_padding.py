@@ -27,9 +27,9 @@ class Timer():
 async def start_it(event):
     await event.reply("✋ Welcome I Can Convert 📽 Video To ⏯ Mp3 File")
     
-@client.on(events.NewMessage(func=lambda e: e.is_private and e.media))
+@client.on(events.NewMessage(func=lambda e: e.is_private and e.media and e.mime_type='video/mp4'))
 async def tint_it(event):
-    print(event)
+    
 
     async def progress(cur, tot):
         if time() >= last.get_current() + 2:
@@ -47,7 +47,7 @@ async def tint_it(event):
                 await message.edit("Downloading... ⏳")
                 last.set_action("Downloading... ⏳")
                 await client.send_file(event.chat_id, f"{temp_directory}/file.mp3", supports_streaming=True,
-                                       progress_callback=progress)
+                                       progress_callback=progress,reply_to(event.message.id))
                 await message.delete()
                 audio.close()
             except:
