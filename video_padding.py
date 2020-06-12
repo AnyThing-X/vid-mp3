@@ -29,12 +29,6 @@ async def start_it(event):
     
 @client.on(events.NewMessage(func=lambda e: e.is_private and e.media))
 async def tint_it(event):
-    
-
-    async def progress(cur, tot):
-        if time() >= last.get_current() + 2:
-            last.set_current(time())
-            await message.edit(f'✅ Done {last.action} {round(100 * cur / tot, 2)}% ')
     with tempfile.TemporaryDirectory() as temp_directory:
         async with client.conversation(event.chat_id, timeout=None, total_timeout=None) as conv:
             try:
@@ -46,7 +40,7 @@ async def tint_it(event):
                 subprocess.run(f'ffmpeg -i {media} -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 "{temp_directory}/file.mp3"', shell=True)
                 await message.edit("📤 Uploading ... ⏳")
                 await client.send_file(event.chat_id, f"{temp_directory}/file.mp3", supports_streaming=True,
-                                       progress_callback=progress,reply_to=event.message.reply_to_msg_id)
+                                       progress_callback=progress,reply_to=conv.message.reply_to_msg_id)
                 await message.delete()
                 audio.close()
             except:
