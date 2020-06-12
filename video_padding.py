@@ -35,7 +35,7 @@ class Timer():
 
 @client.on(events.NewMessage(func=lambda e: e.is_private, pattern="/start"))
 async def start_it(event):
-    await event.reply("✋ مرحبا أرسل فيديو لا يزيد عن 2:20 دقيقة")
+    await event.reply("Welcome I Can Convert Video To Mp3 File :)
     
 @client.on(events.NewMessage(func=lambda e: e.is_private and e.media))
 async def tint_it(event):
@@ -43,33 +43,33 @@ async def tint_it(event):
     async def progress(cur, tot):
         if time() >= last.get_current() + 2:
             last.set_current(time())
-            await message.edit(f'تم {last.action} {round(100 * cur / tot, 2)}% ')
+            await message.edit(f'✅ Done {last.action} {round(100 * cur / tot, 2)}% ')
 
     with tempfile.TemporaryDirectory() as temp_directory:
 
         async with client.conversation(event.chat_id, timeout=None, total_timeout=None) as conv:
             try:
 
-                message = await conv.send_message("جار التحميل...")
+                message = await conv.send_message("Downloading... ⏳")
 
                 last = Timer(time())
 
                 media = await client.download_media(event.media, progress_callback=progress, file=temp_directory)
-
-                await message.edit("تم التحميل. جار إضافة الإطار إلى المقطع المرئي.")
+                audio = AudioFileClip(media)
+                await message.edit("Uploaded ✅ Converting to Mp3file 🎙")
                 subprocess.run(f'ffmpeg -i {media} {temp_directory}/file.mp3', shell=True)
 
-                await message.edit("جار التحميل.")
-                last.set_action("التحميل")
+                await message.edit("Downloading... ⏳")
+                last.set_action("Downloading... ⏳")
                 await client.send_file(event.chat_id, f"{temp_directory}/file.mp3", supports_streaming=True,
                                        progress_callback=progress)
-                await conv.send_message("تم")
-                video.close()
+                await conv.send_message("Done ✅")
+                audio.close()
             except:
                 traceback.print_exc()
-                await event.reply("حدث خلل ما الرجاء التجربة مرة اخرى")
+                await event.reply("🚫 Something went wrong please try again.")
                 try:
-                    video.close()
+                    audio.close()
                 except:
                     pass
 
