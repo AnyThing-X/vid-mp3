@@ -57,7 +57,7 @@ async def tint_it(event):
                 media = await client.download_media(event.media, progress_callback=progress, file=temp_directory)
 
                 await message.edit("تم التحميل. جار إضافة الإطار إلى المقطع المرئي.")
-                subprocess.run(f'ffmpeg -i {media} file.mp3 -c:a copy "{temp_directory}/file.mp3"', shell=True)
+                subprocess.run(f'ffmpeg -i {media} {temp_directory}/file.mp3', shell=True)
 
                 await message.edit("جار التحميل.")
                 last.set_action("التحميل")
