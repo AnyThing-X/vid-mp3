@@ -57,12 +57,14 @@ async def tint_it(event):
                 media = await client.download_media(event.media, progress_callback=progress, file=temp_directory)
                 audio = AudioFileClip(media)
                 await message.edit("Uploaded ✅ Converting to Mp3file 🎙")
-                subprocess.run(f'ffmpeg -i {media} "{temp_directory}/file.mp3"', shell=True)
-
+                #ffmpeg -i video.mp4 -b:a 192K -vn music.mp3
+                subprocess.run(f'ffmpeg -i {media} -b:a 192K -vn "{temp_directory}/file.mp3"', shell=True)
+                #subprocess.run(f'ffmpeg -i {media} "{temp_directory}/file.mp3"', shell=True)
                 await message.edit("Downloading... ⏳")
                 last.set_action("Downloading... ⏳")
                 await client.send_file(event.chat_id, f"{temp_directory}/file.mp3", supports_streaming=True,
                                        progress_callback=progress)
+                await message.delete()
                 await conv.send_message("Done ✅")
                 audio.close()
             except:
