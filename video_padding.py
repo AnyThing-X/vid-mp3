@@ -34,7 +34,7 @@ async def tint_it(event):
             try:
                 message = await conv.send_message("📥 Downloading ... ⏳")
                 last = Timer(time())
-                media = await client.download_media(event.media, progress_callback=progress, file=temp_directory)
+                media = await client.download_media(event.media,file=temp_directory)
                 audio = AudioFileClip(media)
                 await message.edit("⏳ 🔄 Converting to Mp3file 🎙")
                 subprocess.run(f'ffmpeg -i {media} -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 "{temp_directory}/file.mp3"', shell=True)
